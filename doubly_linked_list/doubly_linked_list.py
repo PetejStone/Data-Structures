@@ -123,6 +123,43 @@ class DoublyLinkedList:
           nxt.prev = None # setting this == to None because it's current prev was the deleted item
           cur = None #get rid of element by setting it equal to None
           self.head = nxt #move the status of the head to the nxt item
+          return #return the list
+
+        
+      elif cur.data == key #if data = key, but is not the head (elif from line 110)
+          #Case 3 -- When cur.next is NOT none, and NOT the head (if it has a prev and a next)
+          if cur.next: #if cur.next is true 
+            nxt = cur.next #set nxt to the next item
+            prev = cur.prev #set prev to the prev item -- see below
+            ##### ---- so in   A  B  C, if B is the cur, then cur.next (nxt) is C, and cur.prev (prev) is A
+            #### this is so we can get these to point to each other, looping around the 'deleted' item
+            prev.next = nxt #  so A.next is == C, skipping B
+            nxt.prev = prev # so C.prev == A skipping B
+            
+            #kill off pointers that aren't doing anything
+            cur.next = None
+            cur.prev = None
+            cur = None #Get rid of node
+            return # return list
+
+          #Case 4 if cur.next IS none, so if it is the tail
+          else: #if cur.next is none
+            prev = cur.prev # set the prev variable to the previous item
+            prev.next = None # Set to none because it will become the new tail
+           
+           #kill off pointers that aren't doing anything
+            cur.prev = None
+            cur = None # get rid of node
+            return #return the list
+
+
+
+
+
+
+
+
+
 
       
   """Returns the highest value currently in the list"""

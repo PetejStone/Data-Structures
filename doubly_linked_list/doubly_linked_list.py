@@ -46,9 +46,8 @@ class DoublyLinkedList:
   """Wraps the given value in a ListNode and inserts it 
   as the new head of the list. Don't forget to handle 
   the old head node's previous pointer accordingly."""
-  def add_to_head(self, value):
+  def add_to_head(self, value): ## prepend
     pass
-  
   """Removes the List's current head node, making the
   current head's next node the new head of the List.
   Returns the value of the removed Node."""
@@ -58,9 +57,22 @@ class DoublyLinkedList:
    """Wraps the given value in a ListNode and inserts it 
   as the new tail of the list. Don't forget to handle 
   the old tail node's next pointer accordingly."""
-  def add_to_tail(self, value):
-    pass
-
+  def add_to_tail(self, value): ## append
+    if self.head is None: #If nothing is in the list
+      new_node = ListNode(value) #Create a new node and pass in the data (or value)
+      new_node.prev = None # Previous node is None since it is the beginning of the list
+      self.head = new_node #the head node element is new the newly created node
+    else: #if there is at least one element in the list
+      new_node = Node(value) # create new node
+      #go through each item and check if Next is == None until you find it
+      #this is the last item 
+      cur = self.head # start a current variable at the head
+      while cur.next: #while cur has a next, aka -- not = none
+        cur = cur.next # set each item you get to as the new current element
+        #above will exit when it is at the last node
+      cur.next = new_node #set the current item's (the item that WAS last) next node to the new node
+      new_node.prev = cur #We want the newly created node's previous node to be the current item (last one in the list)
+      new_node.next = None #newly created node points to None since it is the last item
   """Removes the List's current tail node, making the 
   current tail's previous node the new tail of the List.
   Returns the value of the removed Node."""

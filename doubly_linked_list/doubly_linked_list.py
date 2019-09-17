@@ -82,6 +82,9 @@ class DoublyLinkedList:
       cur.next = new_node #set the current item's (the item that WAS last) next node to the new node
       new_node.prev = cur #We want the newly created node's previous node to be the current item (last one in the list)
       new_node.next = None #newly created node points to None since it is the last item
+  
+  
+  
   """Removes the List's current tail node, making the 
   current tail's previous node the new tail of the List.
   Returns the value of the removed Node."""
@@ -101,8 +104,27 @@ class DoublyLinkedList:
   """Removes a node from the list and handles cases where
   the node was the head or the tail"""
   def delete(self, node):
-    pass
-    
+    cur = self.head # set current item to the head
+
+    while cur: #while cur is not Null, so while list is NOT empty
+      if cur.value == key and cur == self.head: #if the current value is equal to the value we want to delete, and if it's currently at the head of the list
+       
+        ##Case 1 -- when the Node you want to delete is the head node, and it is also the only item
+        if not cur.next #If not pointing to any node -- only node in list
+          cur = None # Removes current node we created for checking
+          self.head = None #removes node that matched, removes the head
+          return ## List is now empty, return
+        
+        #Case 2 - Delete Head node, but list is not empty (there is a next node)
+        else: #opposite of line 113, if next is pointing to a valid node
+          nxt = cur.next # set nxt == to the cur.next (the next item in the list (next to the head))
+          cur.next = None #We want to remove the pointer to the next item because it is being removed
+          #cur.prev = None  --- commented out because not needed, because head's previous already points to none
+          nxt.prev = None # setting this == to None because it's current prev was the deleted item
+          cur = None #get rid of element by setting it equal to None
+          self.head = nxt #move the status of the head to the nxt item
+
+      
   """Returns the highest value currently in the list"""
   def get_max(self):
     pass

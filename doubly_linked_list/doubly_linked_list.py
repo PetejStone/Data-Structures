@@ -47,7 +47,16 @@ class DoublyLinkedList:
   as the new head of the list. Don't forget to handle 
   the old head node's previous pointer accordingly."""
   def add_to_head(self, value): ## prepend
-    pass
+    if self.head is None: #if nothing is in list
+      new_node = Node(value) #create a new node and pass in the data (value)
+      new_node.prev = None # Previous node is None since it will be placed at the beginning
+      self.head = new_node # the head element is now = to the new node
+    else: #if list has at least one item
+      new_node = Node(data) #create new node as set it's value to the data
+      self.head.prev = new_node # the CURRENT head's previous node (now None) should be changed to the new node that will be taking it's place
+      new_node.next = self.head # the newly created node's next node should point to the current head (which will no longer be the head after the node is placed -- think of 'self.head' as a VALUE statement, not a location)
+      self.head = new_node #make the head the new node 
+      new_node.prev = None ## set the new node's prev to None because it is the NEW HEAD
   """Removes the List's current head node, making the
   current head's next node the new head of the List.
   Returns the value of the removed Node."""

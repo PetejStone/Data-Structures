@@ -8,6 +8,7 @@ class BinarySearchTree:
     self.value = value
     self.left = None
     self.right = None
+  #
 
   def insert(self, value):
     pass

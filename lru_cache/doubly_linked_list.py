@@ -1,39 +1,39 @@
-"""Each ListNode holds a reference to its previous node
-as well as its next node in the List."""
+# """Each ListNode holds a reference to its previous node
+# as well as its next node in the List."""
 class ListNode:
   def __init__(self, value, prev=None, next=None):
     self.value = value
     self.prev = prev
     self.next = next
 
-  """Wrap the given value in a ListNode and insert it
-  after this node. Note that this node could already
-  have a next node it is point to."""
+# """Wrap the given value in a ListNode and insert it
+# after this node. Note that this node could already
+# have a next node it is point to."""
   def insert_after(self, value):
-    current_next = self.next
-    self.next = ListNode(value, self, current_next)
-    if current_next:
-      current_next.prev = self.next
+      current_next = self.next
+      self.next = ListNode(value, self, current_next)
+      if current_next:
+        current_next.prev = self.next
 
-  """Wrap the given value in a ListNode and insert it
-  before this node. Note that this node could already
-  have a previous node it is point to."""
+# """Wrap the given value in a ListNode and insert it
+# before this node. Note that this node could already
+# have a previous node it is point to."""
   def insert_before(self, value):
-    current_prev = self.prev
-    self.prev = ListNode(value, current_prev, self)
-    if current_prev:
-      current_prev.next = self.prev
+      current_prev = self.prev
+      self.prev = ListNode(value, current_prev, self)
+      if current_prev:
+        current_prev.next = self.prev
 
-  """Rearranges this ListNode's previous and next pointers
-  accordingly, effectively deleting this ListNode."""
+# """Rearranges this ListNode's previous and next pointers
+# accordingly, effectively deleting this ListNode."""
   def delete(self):
-    if self.prev:
-      self.prev.next = self.next
-    if self.next:
-      self.next.prev = self.prev
+      if self.prev:
+        self.prev.next = self.next
+      if self.next:
+        self.next.prev = self.prev
 
-"""Our doubly-linked list class. It holds references to
-the list's head and tail nodes."""
+# """Our doubly-linked list class. It holds references to
+# the list's head and tail nodes."""
 class DoublyLinkedList:
   def __init__(self, node=None):
     self.head = node
@@ -107,22 +107,27 @@ class DoublyLinkedList:
   def remove_from_tail(self):
       
       if self.tail:
-        
+        cur = self.tail.value
         self.delete(self.tail)
-        return self.tail
-      else:
-        
-        return self.tail
+        return cur
 
 # """Removes the input node from its current spot in the 
 # List and inserts it as the new head node of the List."""
   def move_to_front(self, node):
-    pass
+    if node is self.head:
+      return
+    value = node.value
+    self.delete(node)
+    self.add_to_head(value)
 
 # """Removes the input node from its current spot in the 
 # List and inserts it as the new tail node of the List."""
   def move_to_end(self, node):
-    pass
+    if node is self.tail:
+      return
+    value = node.value
+    self.delete(node)
+    self.add_to_tail(value)
 
 # """Removes a node from the list and handles cases where
 # the node was the head or the tail"""
@@ -180,6 +185,16 @@ class DoublyLinkedList:
               return prev #return the list
         cur = cur.next # moves to next pointer after each iteration through the list 
 
-    
+
+
+
+
+
+
+
+
+
+      
+# """Returns the highest value currently in the list"""
   def get_max(self):
     pass

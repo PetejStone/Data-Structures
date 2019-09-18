@@ -15,11 +15,13 @@ class LRUCache:
   to every node stored in the cache.
   """
   def __init__(self, limit=10):
-    self.limit = limit
     self.order = DoublyLinkedList()
-    self.dict = dict() #instantiates dictionary
-    self.size = 0
     self.storage = dict()
+    self.size = 0
+    self.limit = limit
+    
+   
+    
 
   """
   Retrieves the value associated with the given key. Also
@@ -31,20 +33,21 @@ class LRUCache:
   def get(self, key):
     #pull the value out of the dict using the key
     if key in self.storage:
+      #update position in list
       node = self.storage[key]
       self.order.move_to_front(node)
       return node.value[1]
     else:
+      #or return none
       return None
 
-    #update position in list
-    #or return none
+    
+    
 
 
-
-    # if key in self.dict: #if key value is in the dictionary
+    # if key in self.storage: #if key value is in the dictionary
     #   #if there, update it so it is the most recently used -- by removing and re adding
-    #   node = self.dict[key]
+    #   node = self.storage[key]
     #   self.storage.remove_from_tail()#remove
     #   self.storage.add_to_tail(node)# re add
     #   return node.value
@@ -64,7 +67,7 @@ class LRUCache:
     #if it exists
     if key in self.storage:
       #update dict
-      node = self.storage[key]
+      node = self.storage[key] #where linked list is found
       node.value = (key,value)
       #mark as most recently used - Put in the head of the DLL
       self.order.move_to_front(node)
@@ -74,22 +77,23 @@ class LRUCache:
       #dump the oldest
       # remove it from the linked list
       #remove it from the dict
-      del self.storage[self.order.tail.value[0]]
-      self.order.remove_from_tail()
+      #del self.storage[self.order.tail.value[0]]
+      self.order.remove_from_head()
       self.size -= 1
-      #add new pair to cache
-      self.order.add_to_head((key,value))
-      self.storage[key] = self.order.head
-      self.size += 1
+      
+    #add new pair to cache
+    self.order.add_to_head((key,value))
+    self.storage[key] = self.order.head
+    self.size += 1
 
 
-    # if key in self.dict:
+    # if key in self.storage:
     #   self.storage.remove_from_tail()
     # node = ListNode(key,value)
     # self.storage.add_to_tail(node)
-    # self.dict[key] = node
+    # self.storage[key] = node
     # if len(self.dict) > self.limit:
     #   node = self.head.next
     #   self.storage.remove_from_tail(node)
-    #   del self.dict[node.key]
+    #   del self.storage[self.order.tail[0]]
 

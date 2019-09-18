@@ -16,12 +16,10 @@ class LRUCache:
   """
   def __init__(self, limit=10):
     self.limit = limit
+    self.order = DoublyLinkedList()
     self.dict = dict() #instantiates dictionary
-    self.head = ListNode(0,0)
-    self.tail = ListNode(0,0)
-    self.head.next = self.tail
-    self.tail.prev = self.head
-    self.storage = DoublyLinkedList()
+    self.size = 0
+    self.storage = dict()
 
   """
   Retrieves the value associated with the given key. Also
@@ -31,13 +29,26 @@ class LRUCache:
   key-value pair doesn't exist in the cache. 
   """
   def get(self, key):
-    if key in self.dict: #if key value is in the dictionary
-      #if there, update it so it is the most recently used -- by removing and re adding
-      node = self.dict[key]
-      self.storage.remove_from_tail()#remove
-      self.storage.add_to_tail(node)# re add
-      return node.value
-    return -1 # -1 means not there
+    #pull the value out of the dict using the key
+    if key in self.storage:
+      node = self.storage[key]
+      self.order.move_to_front(node)
+      return node.value[1]
+    else:
+      return None
+
+    #update position in list
+    #or return none
+
+
+
+    # if key in self.dict: #if key value is in the dictionary
+    #   #if there, update it so it is the most recently used -- by removing and re adding
+    #   node = self.dict[key]
+    #   self.storage.remove_from_tail()#remove
+    #   self.storage.add_to_tail(node)# re add
+    #   return node.value
+    # return -1 # -1 means not there
 
   """
   Adds the given key-value pair to the cache. The newly-
@@ -50,13 +61,35 @@ class LRUCache:
   the newly-specified value. 
   """
   def set(self, key, value):
-    if key in self.dict:
-      self.storage.remove_from_tail()
-    node = ListNode(key,value)
-    self.storage.add_to_tail(node)
-    self.dict[key] = node
-    if len(self.dict) > self.limit:
-      node = self.head.next
-      self.storage.remove_from_tail(node)
-      del self.dict[node.key]
+    #if it exists
+    if key in self.storage:
+      #update dict
+      node = self.storage[key]
+      node.value = (key,value)
+      #mark as most recently used - Put in the head of the DLL
+      self.order.move_to_front(node)
+      return
+    #if max capacity , dump the oldest- remove from tail
+    if self.size == self.limit:
+      #dump the oldest
+      # remove it from the linked list
+      #remove it from the dict
+      del self.storage[self.order.tail.value[0]]
+      self.order.remove_from_tail()
+      self.size -= 1
+      #add new pair to cache
+      self.order.add_to_head((key,value))
+      self.storage[key] = self.order.head
+      self.size += 1
+
+
+    # if key in self.dict:
+    #   self.storage.remove_from_tail()
+    # node = ListNode(key,value)
+    # self.storage.add_to_tail(node)
+    # self.dict[key] = node
+    # if len(self.dict) > self.limit:
+    #   node = self.head.next
+    #   self.storage.remove_from_tail(node)
+    #   del self.dict[node.key]
 

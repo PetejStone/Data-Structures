@@ -1,3 +1,11 @@
+import sys
+sys.path.append('../doubly_linked_list') 
+from doubly_linked_list import DoublyLinkedList
+
+import sys
+sys.path.append('./doubly_linked_list') 
+from doubly_linked_list import ListNode
+
 class LRUCache:
   """
   Our LRUCache class keeps track of the max number of nodes it
@@ -9,10 +17,11 @@ class LRUCache:
   def __init__(self, limit=10):
     self.limit = limit
     self.dict = dict() #instantiates dictionary
-    self.head = Node(0,0)
-    self.tail = Node(0,0)
+    self.head = ListNode(0,0)
+    self.tail = ListNode(0,0)
     self.head.next = self.tail
     self.tail.prev = self.head
+    self.storage = DoublyLinkedList()
 
   """
   Retrieves the value associated with the given key. Also
@@ -25,9 +34,9 @@ class LRUCache:
     if key in self.dict: #if key value is in the dictionary
       #if there, update it so it is the most recently used -- by removing and re adding
       node = self.dict[key]
-      self.storage.remove_from_tail(node)#remove
+      self.storage.remove_from_tail()#remove
       self.storage.add_to_tail(node)# re add
-
+      return node.value
     return -1 # -1 means not there
 
   """
@@ -42,5 +51,12 @@ class LRUCache:
   """
   def set(self, key, value):
     if key in self.dict:
-      self.storage.remove_from_tail(self.dict[key])
+      self.storage.remove_from_tail()
+    node = ListNode(key,value)
+    self.storage.add_to_tail(node)
+    self.dict[key] = node
+    if len(self.dict) > self.limit:
+      node = self.head.next
+      self.storage.remove_from_tail(node)
+      del self.dict[node.key]
 

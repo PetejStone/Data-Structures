@@ -32,7 +32,7 @@ class LRUCache:
   """
   def get(self, key):
     #pull the value out of the dict using the key
-    if key in self.storage:
+    if key in self.storage is not None:
       #update position in list
       node = self.storage[key]
       self.order.move_to_front(node)
@@ -77,15 +77,21 @@ class LRUCache:
       #dump the oldest
       # remove it from the linked list
       #remove it from the dict
-      #del self.storage[self.order.tail.value[0]]
-      self.order.remove_from_head()
+      #print(self.order.head.next.value)
+     # if self.order.tail is not None:
+      del self.storage[self.order.head.next.value[0]]
+      #print('HELLO')
+      self.order.remove_from_tail()
       self.size -= 1
       
     #add new pair to cache
     self.order.add_to_head((key,value))
     self.storage[key] = self.order.head
     self.size += 1
-
+   # print(self.storage)
+   
+  def len(self):
+    return self.size
 
     # if key in self.storage:
     #   self.storage.remove_from_tail()

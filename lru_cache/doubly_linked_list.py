@@ -51,6 +51,7 @@ class DoublyLinkedList:
         new_node = ListNode(value) #create a new node and pass in the data (value)
         new_node.prev = None # Previous node is None since it will be placed at the beginning
         self.head = new_node # the head element is now = to the new node
+        self.tail = None
       else: #if list has at least one item
         new_node = ListNode(value) #create new node as set it's value to the data
         self.head.prev = new_node # the CURRENT head's previous node (now None) should be changed to the new node that will be taking it's place
@@ -117,6 +118,7 @@ class DoublyLinkedList:
     if node is self.head:
       return
     value = node.value
+    
     self.delete(node)
     self.add_to_head(value)
 

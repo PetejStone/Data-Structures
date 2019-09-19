@@ -52,10 +52,18 @@ class BinarySearchTree:
   def get_max(self):
     #max node == farthest to the right
     #base case
-    #if no right, root is max
+    if no right, root is max
     if not self.right:
       return self.value #root
     return self.right.get_max()
+
+    ##iterative solution
+    # max_value = self.value
+    # current = self
+    # while current:
+    #   max_value = current.value
+    #   current = current.right
+    # return max_value
 
 
   def for_each(self, cb):

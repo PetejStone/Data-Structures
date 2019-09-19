@@ -50,7 +50,13 @@ class BinarySearchTree:
           return  self.right.contains(target)
         
   def get_max(self):
-    pass
+    #max node == farthest to the right
+    #base case
+    #if no right, root is max
+    if not self.right:
+      return self.value #root
+    return self.right.get_max()
+
 
   def for_each(self, cb):
     pass

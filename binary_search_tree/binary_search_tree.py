@@ -31,8 +31,24 @@ class BinarySearchTree:
 
 
   def contains(self, target):
-    pass
-
+    # Check if the current value is the target, if so, we are done.
+    if self.value == target:
+      return True
+    # If not, left or right based on bigger or smaller, then call contains again (recursion)
+    else:
+      if target < self.value:
+        # Go left
+        if not self.left:
+          return False
+        else:
+          return self.left.contains(target)
+      else:
+        #go right
+        if not self.right:
+          return False 
+        else:
+          return  self.right.contains(target)
+        
   def get_max(self):
     pass
 

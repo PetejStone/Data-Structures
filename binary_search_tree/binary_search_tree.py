@@ -122,8 +122,17 @@ class BinarySearchTree:
   # Print the value of every node, starting with the given node,
   # in an iterative breadth first traversal
   def bft_print(self, start):
-    pass
-      
+    nodes = []
+    stack = [self]
+    while stack:
+        cur_node = stack[0]
+        stack = stack[1:]
+        nodes.append(cur_node)
+        for child in cur_node.get_children():
+            stack.append(child)
+    return nodes
+
+  
 
   # Print the value of every node, starting with the given node,
   # in an iterative depth first traversal

@@ -36,8 +36,7 @@ class ListNode:
 # the list's head and tail nodes."""
 class DoublyLinkedList:
   def __init__(self, node=None):
-    self.head = node
-    self.tail = node
+     
     self.length = 1 if node is not None else 0
 
   def __len__(self):
@@ -57,6 +56,7 @@ class DoublyLinkedList:
         new_node.next = self.head # the newly created node's next node should point to the current head (which will no longer be the head after the node is placed -- think of 'self.head' as a VALUE statement, not a location)
         self.head = new_node #make the head the new node 
         new_node.prev = None ## set the new node's prev to None because it is the NEW HEAD
+  
   
 # """Removes the List's current head node, making the
 # current head's next node the new head of the List.

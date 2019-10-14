@@ -121,17 +121,17 @@ class BinarySearchTree:
   
   # Print the value of every node, starting with the given node,
   # in an iterative breadth first traversal
-  def bft_print(self, start):
-    nodes = []
-    stack = [self]
-    while stack:
-        cur_node = stack[0]
-        stack = stack[1:]
-        nodes.append(cur_node)
-        for child in cur_node.get_children():
-            stack.append(child)
-    return nodes
+  def bft_print(self, node):
+      storage = Queue()
+      current = self
 
+      while current:
+        print(current.value)
+        if current.left:
+          storage.enqueue(current.left)
+        if current.right:
+          storage.enqueue(current.right)
+        current = storage.dequeue()
   
 
   # Print the value of every node, starting with the given node,

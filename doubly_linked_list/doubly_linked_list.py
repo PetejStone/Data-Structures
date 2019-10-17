@@ -47,12 +47,13 @@ class DoublyLinkedList:
 # as the new head of the list. Don't forget to handle 
 # the old head node's previous pointer accordingly."""
   def add_to_head(self, value): ## prepend
+
       if self.head is None: #if nothing is in list
         new_node = ListNode(value) #create a new node and pass in the data (value)
         new_node.prev = None # Previous node is None since it will be placed at the beginning
         self.head = new_node # the head element is now = to the new node
       else: #if list has at least one item
-        new_node = ListNode(value) #create new node as set it's value to the data
+        new_node = ListNode(value) #create new node and set it's value to the data
         self.head.prev = new_node # the CURRENT head's previous node (now None) should be changed to the new node that will be taking it's place
         new_node.next = self.head # the newly created node's next node should point to the current head (which will no longer be the head after the node is placed -- think of 'self.head' as a VALUE statement, not a location)
         self.head = new_node #make the head the new node 
@@ -136,7 +137,7 @@ class DoublyLinkedList:
       cur = self.head # set current item to the head
       
       while cur: #while cur is not Null, so while list is NOT empty
-        if cur == self.head: #if the current value is equal to the value we want to delete, and if it's currently at the head of the list
+        if cur == self.head: #if it's currently at the head of the list
         
           ##Case 1 -- when the Node you want to delete is the head node, and it is also the only item
           if not cur.next: #If not pointing to any node -- only node in list
@@ -157,7 +158,7 @@ class DoublyLinkedList:
             return nxt#return the list
 
           
-        else: #if data = key, but is not the head (elif from line 110)
+        else: #(elif from line 110)
             #Case 3 -- When cur.next is NOT none, and NOT the head (if it has a prev and a next)
             if cur.next: #if cur.next is true 
               nxt = cur.next #set nxt to the next item

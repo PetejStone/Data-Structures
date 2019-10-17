@@ -18,7 +18,7 @@ log(n)
 2. What is the runtime complexity of `contains`?
 log(n)
 3. What is the runtime complexity of `get_max`? 
-O(n)
+log(n)
 ## Heap
 
 1. What is the runtime complexity of `_bubble_up`?

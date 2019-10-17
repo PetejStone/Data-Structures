@@ -81,7 +81,7 @@ class LRUCache:
      # if self.order.tail is not None:
       del self.storage[self.order.head.next.value[0]]
       #print('HELLO')
-      self.order.remove_from_tail()
+      self.order.remove_from_head()
       self.size -= 1
       
     #add new pair to cache
